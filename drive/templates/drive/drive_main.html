@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<!--<link rel="stylesheet" href="/css/jquery-ui.min.css">-->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>
+
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
+<script type='text/javascript'
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+<!--<script src="/js/bootstrap-datepicker.kr.js" charset="UTF-8"></script>-->
+
+
+<script type='text/javascript'>
+    $(function () {
+        $('.input-group.date').datepicker({
+            calendarWeeks: false,
+            todayHighlight: true,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: "kr",
+            defalutDate: new Date()
+        });
+    });
+</script>
+
+
+{% endblock %}
+{% block css %}
+
+.main-button {
+background: #ffffff;
+padding: 20px 0px;
+text-align: center;
+width: 400px;
+height: 75px;
+max-width: 400px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+#submit {
+background: #5672ff;
+padding: 20px 0px;
+text-align: center;
+width: 400px;
+height: 75px;
+max-width: 400px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+#main-button {
+background: #ffffff;
+padding: 20px 0px;
+text-align: center;
+width: 300px;
+height: 75px;
+max-width: 300px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+#main-button1 {
+background: #ffffff;
+padding: 20px 0px;
+text-align: center;
+width: 300px;
+height: 75px;
+max-width: 300px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'drive:list' %}" method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+
+        <div class="col" id='main-button'>
+            출발지
+            <div class="place-point">
+                <select class="custom-select" name="departure_key">
+                    <option selected>출발지를 선택해주세요</option>
+                    <option value="서울">서울</option>
+                    <option value="경기">경기</option>
+                    <option value="인천">인천</option>
+                    <option value="강원">강원</option>
+                    <option value="대전">대전</option>
+                    <option value="충남">충남</option>
+                    <option value="충북">충북</option>
+                    <option value="광주">광주</option>
+                    <option value="전남">전남</option>
+                    <option value="전북">전북</option>
+                    <option value="부산">부산</option>
+                    <option value="경남">경남</option>
+                    <option value="대구">대구</option>
+                    <option value="경북">경북</option>
+                </select></div>
+        </div>
+        <div class="col" id='main-button1'>
+
+            도착지
+            <div class="place-point">
+                <select class="custom-select" name="arrive_key">
+                    <option selected>도착지를 선택해주세요</option>
+                    <option value="서울">서울</option>
+                    <option value="경기">경기</option>
+                    <option value="인천">인천</option>
+                    <option value="강원">강원</option>
+                    <option value="대전">대전</option>
+                    <option value="충남">충남</option>
+                    <option value="충북">충북</option>
+                    <option value="광주">광주</option>
+                    <option value="전남">전남</option>
+                    <option value="전북">전북</option>
+                    <option value="부산">부산</option>
+                    <option value="경남">경남</option>
+                    <option value="대구">대구</option>
+                    <option value="경북">경북</option>
+                </select></div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button">
+                출발날짜
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date_key"><span class="input-group-addon"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="main-button1">
+                    <input type="submit" id="submit" class="btn btn-primary btn-lg" value="조회하기">
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}

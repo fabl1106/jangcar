@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block css %}
+
+#main-button {
+padding: 20px 0px;
+text-align: center;
+width: 400px;
+height: 500px;
+max-width: 400px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+{% endblock %}
+
+{% block content %}
+
+<!--            출발지 : {{object.departure_area}}<br>-->
+<!--            도착지 : {{object.arrive_area}}<br>-->
+<!--            출발 날짜 : {{ object.departure_data}}<br>-->
+<!--            출발 시각 : {{ object.departure_time }}<br>-->
+<!--            상세 여정 : {{ object.detail_plan }}<br>-->
+<!--            요금 : {{ object.fee }}<br>-->
+<!--            연락 방법 : {{ object.connect }}<br>-->
+<!--            메모 : {{ object.memo }}<br>-->
+<div class="row" id="main-button">
+    <ul class="list-group">
+        <li class="list-group-item">출발지 : {{object.departure_area}}</li>
+        <li class="list-group-item">도착지 : {{object.arrive_area}}</li>
+        <li class="list-group-item">출발 날짜 : {{ object.departure_date }}</li>
+        <li class="list-group-item">출발 시각 : {{ object.departure_time }}</li>
+        <li class="list-group-item">상세 여정 : {{ object.detail_plan }}</li>
+        <li class="list-group-item">요금 : {{ object.fee }}</li>
+        <li class="list-group-item">연락 방법 : {{ object.connect }}</li>
+        <li class="list-group-item">메모 : {{ object.memo }}</li>
+    </ul>
+</div>
+
+{% endblock %}

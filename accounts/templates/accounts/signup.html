@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block css %}
+
+#main-button {
+padding: 20px 0px;
+text-align: center;
+width: 400px;
+height: 500px;
+max-width: 400px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row" id="main-button">
+        <form action="" method="post">
+            <div class = "alert alert-info">Please enter your account information</div>
+                {% csrf_token %}
+                {{ form }}
+        <input type="submit" value="Sign up" class="btn btn-outline-info">
+        </form>
+</div>
+
+{% endblock %}

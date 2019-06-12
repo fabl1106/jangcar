@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+#main-button {
+padding: 30px 0px;
+text-align: center;
+width: 400px;
+height: 500px;
+max-width: 400px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 10px;
+transition: background 0.5s;
+}
+
+#button-size {
+width: 300px;
+height: 50px;
+}
+
+{% endblock %}
+
+{% block content %}
+
+{% load widget_tweaks %}
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="row">
+    <ul class="list-group" id="main-button">
+                <li class="list-group-item">출발지 : {{ form.departure_area}}</li>
+                <li class="list-group-item">도착지 : {{ form.arrive_area }}</li>
+                <li class="list-group-item">출발 날짜 : {{ form.departure_date }}</li>
+                <li class="list-group-item">출발 시간 : {{ form.departure_time }}</li>
+                <li class="list-group-item">상세 출발지&도착지 : {{ form.detail_plan}}</li>
+                <li class="list-group-item">요금 : {{ form.fee }}</li>
+                <li class="list-group-item">연락 방법 : {{ form.connect }}</li>
+                <li class="list-group-item">간단한 여정소개 : {{ form.memo }}</li>
+                <li class="list-group-item active"><input type="submit" class="btn btn-primary" id="button-size" value="추가하기"></li>
+            </ul>
+        </div>
+<!--    <div class="row">-->
+<!--    <input type="submit" class="btn btn-primary" value="추가하기">-->
+<!--        </div>-->
+</form>
+{% endblock %}
+
+<!--{% block javascript %}-->
+
+<!--<script type="text/javascript">-->
+<!--    $(function () {-->
+<!--        $('.list-group-item').click(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            activeDeparture = $(this).data('')-->
+<!--        //     params = $(this).serialize();-->
+<!--        //     print(params)-->
+<!--            if ($('#places-modal').is(':visible')){-->
+<!--                $('#places-modal').modal('hide');}-->
+
+<!--            $.ajax({-->
+<!--                method : "GET",-->
+<!--                data: activeDeparture,-->
+
+<!--            }).done(function(data){-->
+<!--                console.log(data)-->
+<!--                $('.place-point').text(data)-->
+<!--                // $('.place-point').prepend(data.html);-->
+<!--            });-->
+<!--            return false;-->
+<!--        });-->
+<!--    });-->
+
+
+
+<!--</script>-->
+<!--{% endblock %}-->
