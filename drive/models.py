@@ -36,7 +36,7 @@ AREA = (
 )
 
 class Drive(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     departure_area = models.CharField(max_length=10, choices=AREA)
     arrive_area = models.CharField(max_length=10, choices=AREA)
     departure_date = models.DateField(default=date.today)

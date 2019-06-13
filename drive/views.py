@@ -16,7 +16,7 @@ def drive_create(request):
 
     if request.method == "POST":
         form = DriveRegisterForm(request.POST)
-        form.instance.author_id = request.user.id
+        form.instance.user_id = request.user.id
         if form.is_valid():
             form.save()
             # return redirect(instance)
@@ -71,6 +71,17 @@ def drive_list(request):
 class DriveDetail(DetailView):
     model = Drive
     template_name = 'drive/drive_detail.html'
+
+
+def drive_mylist(request):
+    if not request.user.is_authenticated:
+        return render(request, 'drive/drive_mylist.html')
+    else:
+        Drive_list = Drive.objects.filter(user=request.user.id)
+        if not Drive_list:
+            return render(request, 'drive/drive_mylist.html')
+
+        return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
 
 
 class MyDriveList(ListView):
