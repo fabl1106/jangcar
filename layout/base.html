@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<!--    <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>-->
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Mitr|Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -13,10 +15,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-</head>
 {% block head %}
 
 {% endblock %}
+
+</head>
+
 <body>
 
 <style>
@@ -25,54 +29,109 @@
         background-color: #f8f8f8
     }
 
+    h1 {
+        font-family: 'Mitr', sans-serif;
+        font-size: 60px;
+        margin : 0px 0px 15px 0px;
+    }
+
+
+    div {
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 25px;
+    }
+
     {% block css %}
     {% endblock %}
 
-    .tab-content{
+    .tab-content {
 
         display: inline-block;
+    }
+    /*.container{*/
+    /*    margin-left:auto;*/
+    /*    margin-right:auto;*/
+    /*    width : 100%;*/
+    /*    max-width : 800px;*/
+    /*    min-width : 500px;*/
+    /*}*/
+
+    .main-content {
+        margin-left:auto;
+        margin-right:auto;
+        width : 100%;
+        max-width : 700px;
+        min-width : 500px;
+    }
+
+    .navbar-light{
+        margin:0px;
+        padding:0px;
+        width: 100%;
+    }
+
+    #pills-tab1{
+        /*padding:0px;*/
+        /*margin:0px;*/
+        /*width:100%;*/
+        text-align:right;
+        float: right;
     }
 </style>
 
 
 <div class=container>
-    <h1 style="margin-top: 50px">JangCar!</h1>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/"><h1 style="margin-top: 50px; margin-left:0px;">JangCar</h1></a>
+    </nav>
 
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item">
-            <a class="btn btn-primary btn-lg" href="{% url 'drive:list' %}" role="button" >라이더</a>
-        </li>&nbsp&nbsp
-        <li class="nav-item">
-            <a class="btn btn-primary btn-lg" href="{% url 'drive:create' %}" role="button">드라이버</a>
-       </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:logout' %}"
-               style="padding: 20px 20px 20px 20px">Logout</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'drive:mylist' %}"
-               style="padding: 20px 20px 20px 0px">내가 등록한 장카</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:login' %}"
-               style="padding: 20px 20px 20px 20px">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:signup' %}"
-               style="padding: 20px 20px 20px 0px">회원가입</a>
-        </li>
-        {% endif %}
-    </ul>
-
+    <!--    <h1 style="margin-top: 50px">JangCar!</h1> -->
     <div class="row">
-        <div class="col"></div>
         <div class="col">
-        {% block content %}
-        {% endblock %}
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="btn btn-primary btn-lg" href="{% url 'drive:main' %}" role="button">라이더</a>
+                </li>
+                &nbsp&nbsp
+                <li class="nav-item">
+                    <a class="btn btn-primary btn-lg" href="{% url 'drive:create' %}" role="button">드라이버</a>
+                </li>
+            </ul>
         </div>
-        <div class="col"></div>
+        <div class="col">
+            <ul class="nav nav-pills mb-3" id="pills-tab1" role="tablist">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'drive:mylist' %}"
+                       style="padding: 20px 10px 20px 0px">내가 등록한 장카</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:logout' %}"
+                       style="padding: 20px 0px 20px 10px">Logout</a>
+                </li>
+
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}"
+                       style="padding: 20px 10px 20px 20px">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:signup' %}"
+                       style="padding: 20px 0px 20px 10px">회원가입</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="main container">
+        <div class="row">
+<!--            <div class="col"></div>-->
+            <div class="main-content">
+                {% block content %}
+                {% endblock %}
+            </div>
+<!--            <div class="col"></div>-->
+        </div>
     </div>
 </div>
 

@@ -1,33 +1,36 @@
 {% extends 'base.html' %}
-{% block head %}
 
-{% endblock %}
 
 {% block css %}
 
 #main-button {
 background: #ffffff;
-padding: 20px 0px;
-text-align: center;
-width: 400px;
-height: 75px;
-max-width: 400px;
+padding: 27px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
+
 
 {% endblock %}
 
 {% block content %}
 
-등록된 장카!
+등록된 장카! <br><br>
 
+{{ departure }} TO {{ arrive }}, {{ date }}
+<br><br>
 <!--{{ Drive.object.departure_date }}-->
 {% for object in objects %}
-<a href="{% url 'drive:detail' object.id %}"><div class="row">
-        <div class="col" id='main-button'>
+<a href="{% url 'drive:detail' object.id %}">
+    <div class="row" id='main-button'>
+        <div class="col" >
+<!--            {{forloop.counter}}-->
             출발 시각 : {{ object.departure_time }}
             요금 : {{ object.fee }}
             <br>

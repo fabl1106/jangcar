@@ -1,20 +1,104 @@
 {% extends 'base.html' %}
+{% block head %}
 
+<script type='text/javascript'>
+    // $(function () {
+    //     $('.input-group.date').datepicker({
+    //         calendarWeeks: false,
+    //         todayHighlight: true,
+    //         autoclose: true,
+    //         format: "yyyy-mm-dd",
+    //         language: "kr",
+    //         defalutDate: new Date()
+    //     });
+    // });
+
+
+    var activeDeparture;
+    var activeArrival;
+    var date;
+
+    function applyInfo() {
+        $('#departure-label').text(activeDeparture);
+        $('#departure_key_input').val(activeDeparture);
+        $('#arrival-label').text(activeArrival);
+        $('#arrive_key_input').val(activeArrival);
+
+        if (date) {
+            $('#date').text((date.getFullYear())+'년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일');
+            $('#date_key_input').val($.datepicker.formatDate('yy-mm-dd', date));
+        }
+    }
+
+    function launchModal(option) {
+
+        $('.place-list-item').off('click').click(function () {
+            if (option == 'departure') {
+                activeDeparture = $(this).data('place');
+            } else if (option == 'arrival') {
+                activeArrival = $(this).data('place');
+            }
+            if ($('#places-modal').is(':visible')) {
+                $('#places-modal').modal('hide');
+            }
+            applyInfo();
+        })
+
+        if (option == 'departure') {
+            $('#places-modal .modal-title').text('출발지')
+        } else if (option == 'arrival') {
+            $('#places-modal .modal-title').text('도착지')
+        }
+
+        $('#places-modal').modal({
+            show: true
+        });
+    }
+
+</script>
+
+{% endblock %}
 {% block css %}
 
 #main-button {
 padding: 30px 0px;
 text-align: center;
-width: 400px;
+width: 450px;
 height: 500px;
-max-width: 400px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+margin: 0px 23px;
 transition: background 0.5s;
 }
 
+
+.check {
+background: #ffffff;
+padding: 20px 0px;
+text-align: center;
+width: 100px;
+height: 90px;
+border-radius: 10px;
+display: inline-block;
+transition: background 0.5s;
+}
+
+#left-check {
+margin-left:22px;
+margin-right:5px;
+}
+
+#right-check {
+margin-left:5px;
+margin-right:22px;
+}
+
 #button-size {
+width: 300px;
+height: 50px;
+}
+
+#button-size1 {
 width: 300px;
 height: 50px;
 }
@@ -29,25 +113,97 @@ height: 50px;
     {% csrf_token %}
 
     <div class="row">
-    <ul class="list-group" id="main-button">
-                <li class="list-group-item">출발지 : {{ form.departure_area}}</li>
-                <li class="list-group-item">도착지 : {{ form.arrive_area }}</li>
+        <ul class="list-group" id="main-button">
+            <div class="row">
+                <div class="places-card col check" id="left-check" onclick="launchModal('departure')">
+                    <span>출발지</span>
+                    <h3 id="departure-label">--</h3>
+                    <input type="hidden" name="departure_area" id="departure_key_input"/>
+                </div>
+                <div class="places-mid-button align-middle">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </div>
+                <div class="places-card col check" id="right-check" onclick="launchModal('arrival')">
+                    <span>도착지</span>
+                    <h3 id="arrival-label">--</h3>
+                    <input type="hidden" name="arrive_area" id="arrive_key_input"/>
+                </div>
+            </div>
+                <!--                <li class="list-group-item">출발지 : {{ form.departure_area}}</li>-->
+                <!--                <li class="list-group-item">도착지 : {{ form.arrive_area }}</li>-->
                 <li class="list-group-item">출발 날짜 : {{ form.departure_date }}</li>
                 <li class="list-group-item">출발 시간 : {{ form.departure_time }}</li>
                 <li class="list-group-item">상세 출발지&도착지 : {{ form.detail_plan}}</li>
                 <li class="list-group-item">요금 : {{ form.fee }}</li>
                 <li class="list-group-item">연락 방법 : {{ form.connect }}</li>
                 <li class="list-group-item">간단한 여정소개 : {{ form.memo }}</li>
-                <li class="list-group-item active"><input type="submit" class="btn btn-primary" id="button-size" value="추가하기"></li>
-            </ul>
+                {% if user.is_authenticated %}
+                <li class="list-group-item active"><input type="submit" class="btn btn-primary" id="button-size"
+                                                          value="추가하기"></li>
+                {% else %}
+                <li class="list-group-item active"><input type="submit" class="btn btn-primary" id="button-size1"
+                                                          value="회원가입 이후에 이용해주세요!"></li>
+                {% endif %}
+        </ul>
+    </div>
+    <!--    <div class="row">-->
+    <!--    <input type="submit" class="btn btn-primary" value="추가하기">-->
+    <!--        </div>-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="places-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="서울">서울</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="경기">경기</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="인천">인천</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="강원">강원</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="대전">대전</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="전남">전남</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="전북">전북</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="부산">부산</a>
+                        <a href="#" class="list-group-item list-group-item-action place-list-item"
+                           data-place="대구">대구</a>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary">선택</button>
+                </div> -->
+            </div>
         </div>
-<!--    <div class="row">-->
-<!--    <input type="submit" class="btn btn-primary" value="추가하기">-->
-<!--        </div>-->
+    </div>
 </form>
 {% endblock %}
 
-<!--{% block javascript %}-->
+{% block javascript %}
+
+<script type="text/javascript">
+    $(function () {
+        $('#button-size1').submit(function (e) {
+            e.preventDefault();
+            var input = confirm('회원가입 후 이용해주세요:)');
+        });
+    });
+</script>
+
+{% endblock %}
 
 <!--<script type="text/javascript">-->
 <!--    $(function () {-->
@@ -73,6 +229,4 @@ height: 50px;
 <!--    });-->
 
 
-
 <!--</script>-->
-<!--{% endblock %}-->

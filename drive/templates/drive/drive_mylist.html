@@ -5,39 +5,45 @@
 
 {% block css %}
 
-#main-button {
+.main-button {
 background: #ffffff;
-padding: 20px 0px;
+padding: 5px 30px;
 text-align: center;
-width: 400px;
-height: 75px;
-max-width: 400px;
+width: 100%;
+height: 90px;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
+
+.time-card>#date, .time-hm-card>#time, .cost-card>#cost, .detail-plan-card>#detail-plan, .memo-card>#memo {
+margin: 7px;
+float: right;
+}
+
 
 {% endblock %}
 
 {% block content %}
 
-내가 등록한 장카
-
+<div class="row"><h3>내가 등록한 장카</h3></div>
+<br>
 <!--{{ Drive.object.departure_date }}-->
 {% for object in objects %}
-
-<a href="{% url 'drive:detail' object.id %}"><div class="row">
-        <div class="col" id='main-button'>
-            출발 시각 : {{ object.departure_time }}
-            요금 : {{ object.fee }}
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="deliver-date">
+                <div class="time-card"  onclick="launchDatePickerModal()" >
+                    <span id="infolabel"><a href="{% url 'drive:detail' object.id %}">출발 일자 : {{object.departure_date}}</a> 출발 시각 : {{ object.departure_time }}
             <br>
-            여정 : {{ object.detail_plan }}
-
+                    요금 : {{ object.fee }} 여정 : {{ object.detail_plan }}
+                    </span>
+                </div>
+            </div>
         </div>
-    </div></a>
-    <br>
-
+    </div>
 {% endfor %}
 
 {% endblock %}

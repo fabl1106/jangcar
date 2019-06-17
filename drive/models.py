@@ -45,3 +45,9 @@ class Drive(models.Model):
     fee = models.CharField(max_length=30)
     connect = models.CharField(max_length=50)
     memo = models.CharField(max_length=300)
+    #
+    # def save(self, force_insert=False, force_update=False, using=None,
+    #          update_fields=None):
+    #     self.connect = self.user.phone
+    #     return super(Drive,self).save(force_insert,force_update,using,update_fields)
+    #

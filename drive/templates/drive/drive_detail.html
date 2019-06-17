@@ -6,14 +6,14 @@
 {% block css %}
 
 #main-button {
-padding: 20px 0px;
+padding: 27px 30px;
 text-align: center;
-width: 400px;
-height: 500px;
-max-width: 400px;
+width: 100%;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+height: 90px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
 
@@ -31,7 +31,8 @@ transition: background 0.5s;
 <!--            메모 : {{ object.memo }}<br>-->
 <div class="row" id="main-button">
     <ul class="list-group">
-        <li class="list-group-item">운전자 : {{ user.username }}</li>
+<!--        <li class="list-group-item">운전자 : {{ user.username }}</li>-->
+        <li class="list-group-item">운전자 : {{ object.user }}</li>
         <li class="list-group-item">출발지 : {{object.departure_area}}</li>
         <li class="list-group-item">도착지 : {{object.arrive_area}}</li>
         <li class="list-group-item">출발 날짜 : {{ object.departure_date }}</li>
@@ -40,6 +41,7 @@ transition: background 0.5s;
         <li class="list-group-item">요금 : {{ object.fee }}</li>
         <li class="list-group-item">연락 방법 : {{ object.connect }}</li>
         <li class="list-group-item">메모 : {{ object.memo }}</li>
+        <li class="list-group-item"><a href="{% url 'drive:update' object.id %}">수정하기   </a>      <a href="{% url 'drive:delete' object.id %}">삭제하기</a></li>
     </ul>
 </div>
 
