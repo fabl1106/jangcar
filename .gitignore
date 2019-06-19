@@ -8,3 +8,7 @@ git
 .idea/
 settings.py
 s3media.py
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
