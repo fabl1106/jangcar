@@ -1,33 +1,562 @@
 {% extends 'base.html' %}
-
 {% block head %}
-{% endblock %}
 
+<!--<link rel="stylesheet" href="/css/jquery-ui.min.css">-->
+
+<!--<script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>-->
+<!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
+<!--<script-->
+<!--        src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"-->
+<!--        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<link rel="stylesheet"-->
+<!--      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">-->
+<!--<script type='text/javascript'-->
+<!--        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>-->
+<!--<script src="/js/bootstrap-datepicker.kr.js" charset="UTF-8"></script>-->
+
+
+<script type='text/javascript'>
+    // $(function () {
+    //     $('.input-group.date').datepicker({
+    //         calendarWeeks: false,
+    //         todayHighlight: true,
+    //         autoclose: true,
+    //         format: "yyyy-mm-dd",
+    //         language: "kr",
+    //         defalutDate: new Date()
+    //     });
+    // });
+
+
+    // function launchModal(option) {
+    //
+    //     $('.place-list-item').off('click').click(function () {
+    //         if (option == 'departure') {
+    //             activeDeparture = $(this).data('place');
+    //         } else if (option == 'arrival') {
+    //             activeArrival = $(this).data('place');
+    //         }
+    //         if ($('#places-modal').is(':visible')) {
+    //             $('#places-modal').modal('hide');
+    //         }
+    //         applyInfo();
+    //     })
+    //
+    //     if (option == 'departure') {
+    //         $('#places-modal .modal-title').text('출발지')
+    //     } else if (option == 'arrival') {
+    //         $('#places-modal .modal-title').text('도착지')
+    //     }
+    //
+    //     $('#places-modal').modal({
+    //         show: true
+    //     });
+    // }
+
+    function launchUsernameModal() {
+        $('#username-modal').modal({
+            show: true
+        });
+    }
+
+    function usernameHM() {
+        var value = document.querySelectorAll("input#username-hm")[0].value;
+        console.log("usernameHM")
+        usernameHM_value = value;
+        console.log('username1')
+        console.log(usernameHM_value)
+        $('#username-modal').modal('hide');
+        if (usernameHM_value) {
+            $('h5#username').text(usernameHM_value);
+            $('h5#username-hm').val(usernameHM_value);
+        }
+        ;
+    }
+
+    function launchPasswordModal() {
+        $('#password-modal').modal({
+            show: true
+        });
+    }
+
+    function passwordHM() {
+        var value = document.querySelectorAll("input#password-hm")[0].value;
+        passwordHM_value = value;
+        $('#password-modal').modal('hide');
+        if (passwordHM_value) {
+            $('h5#password').text(passwordHM_value);
+            $('h5#password-hm').val(passwordHM_value);
+        }
+        ;
+    }
+
+    function launchPassword1Modal() {
+        $('#password1-modal').modal({
+            show: true
+        });
+    }
+
+    function password1HM() {
+        var value = document.querySelectorAll("input#password1-hm")[0].value;
+        password1HM_value = value;
+        $('#password1-modal').modal('hide');
+        if (password1HM_value) {
+            $('h5#password1').text(password1HM_value);
+            $('h5#password1-hm').val(password1HM_value);
+        }
+        ;
+    }
+
+    function launchNameModal() {
+        $('#name-modal').modal({
+            show: true
+        });
+    }
+
+    function nameHM() {
+        var value = document.querySelectorAll("input#name-hm")[0].value;
+        nameHM_value = value;
+        $('#name-modal').modal('hide');
+        if (nameHM_value) {
+            $('h5#name').text(nameHM_value);
+            $('h5#name-hm').val(nameHM_value);
+        }
+        ;
+    }
+
+    function launchPhoneModal() {
+        $('#phone-modal').modal({
+            show: true
+        });
+    }
+
+    function phoneHM() {
+        var value = document.querySelectorAll("input#phone-hm")[0].value;
+        phoneHM_value = value;
+        $('#phone-modal').modal('hide');
+        if (phoneHM_value) {
+            $('h5#phone').text(phoneHM_value);
+            $('h5#phone-hm').val(phoneHM_value);
+        };
+    }
+
+    function launchEmailModal() {
+        $('#email-modal').modal({
+            show: true
+        });
+    }
+
+    function emailHM() {
+        var value = document.querySelectorAll("input#email-hm")[0].value;
+        emailHM_value = value;
+        $('#email-modal').modal('hide');
+        if (emailHM) {
+            $('h5#email').text(emailHM_value);
+            $('h5#email-hm').val(emailHM_value);
+        };
+    }
+
+    function launchMessageModal() {
+        $('#message-modal').modal({
+            show: true
+        });
+    }
+
+    function messageHM() {
+        var value = document.querySelectorAll("input#message-hm")[0].value;
+        messageHM_value = value;
+        $('#message-modal').modal('hide');
+        if (messageHM) {
+            $('h5#message').text(messageHM_value);
+            $('h5#message-hm').val(messageHM_value);
+        }
+        ;
+    }
+
+</script>
+
+{% endblock %}
 {% block css %}
 
-#main-button {
-padding: 20px 0px;
-text-align: center;
-width: 400px;
-height: 500px;
-max-width: 400px;
+.main-button {
+background: #ffffff;
+padding: 27px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
+}
+
+#submit {
+background: #007bff;
+padding: 20px 0px;
+text-align: center;
+width: 100%;
+max-width: 800px;
+height: 90px;
+border-radius: 10px;
+display: inline-block;
+<!--margin: 0px 10px;-->
+margin: auto;
+transition: background 0.5s;
+}
+
+#submit-cancel {
+background: #007bff;
+padding: 20px 0px;
+text-align: center;
+width: 100%;
+max-width: 800px;
+height: 90px;
+border-radius: 10px;
+display: inline-block;
+<!--margin: 0px 10px;-->
+margin: auto;
+transition: background 0.5s;
+}
+
+#username-hover:hover, #password-hover:hover, #password1-hover:hover, #name-hover:hover, #phone-hover:hover, #email-hover:hover, #message-hover:hover {
+background-color: #A9BCF5;
+cursor:pointer;
+}
+
+.username-card>#username, .password-card>#password, .password1-card>#password1, .name-card>#name, .phone-card>#phone, .email-card>#email, .message-card>#message {
+margin: 7px;
+float: right;
 }
 
 {% endblock %}
 
 {% block content %}
 
-<div class="row" id="main-button">
-        <form action="" method="post">
-            <div class = "alert alert-info">Please enter your account information</div>
-                {% csrf_token %}
-                {{ form }}
-        <input type="submit" value="Sign up" class="btn btn-outline-info">
-        </form>
-</div>
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="username-hover">
+                <div class="username-card" onclick="launchUsernameModal()">
+                    <span id="infolabel">아이디</span>
+                    <h5 id="username">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="password-hover">
+                <div class="password-card" onclick="launchPasswordModal()">
+                    <span id="infolabel2">비밀번호</span>
+                    <h5 id="password">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="password1-hover">
+                <div class="password1-card" onclick="launchPassword1Modal()">
+                    <span id="infolabel3">비밀번호 확인</span>
+                    <h5 id="password1">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="name-hover">
+                <div class="name-card" onclick="launchNameModal()">
+                    <span id="infolabel4">이름</span>
+                    <h5 id="name">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="phone-hover">
+                <div class="phone-card" onclick="launchPhoneModal()">
+                    <span id="infolabel5">휴대폰 번호</span>
+                    <h5 id="phone">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="email-hover">
+                <div class="email-card" onclick="launchEmailModal()">
+                    <span id="infolabel6">이메일</span>
+                    <h5 id="email">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="message-hover">
+                <div class="message-card" onclick="launchMessageModal()">
+                    <span id="infolabel7">간단한 자기소개</span>
+                    <h5 id="message">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <input type="submit" id="submit" class="btn btn-primary btn-lg" value="회원 가입하기">
+        </div>
+    </div>
+
+
+    <!-- Modal ID -->
+    <div class="modal fade" id="username-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">아이디</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="username-hm">등록할 아이디를 입력해주세요</label>
+                        <input type="text" class="form-control" id="username-hm"
+                               placeholder="deaguowl" name="username">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:usernameHM();">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal password -->
+    <div class="modal fade" id="password-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">비밀번호</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password-hm">사용할 비밀번호를 입력해주세요.</label>
+                        <input type="text" class="form-control" id="password-hm"
+                               placeholder="******" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="passwordHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal password1 -->
+    <div class="modal fade" id="password1-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">비밀번호 확인</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password1-hm">비밀번호를 다시 한번 입력주세요.</label>
+                        <input type="text" class="form-control" id="password1-hm"
+                               placeholder="******" name="Repeat_password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="password1HM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal name -->
+    <div class="modal fade" id="name-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">이름</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name-hm">성함을 입력해주세요.</label>
+                        <input type="text" class="form-control" id="name-hm"
+                               placeholder="김장카" name="name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="nameHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal phone -->
+    <div class="modal fade" id="phone-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">연락처</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="phone-hm">휴대폰 번호를 입력해주세요.</label>
+                        <input type="text" class="form-control" id="phone-hm"
+                               placeholder="010-1234-5678" name="phone">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="phoneHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Email -->
+    <div class="modal fade" id="email-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">이메일</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email-hm">이메일을 입력해주세요.</label>
+                        <input type="text" class="form-control" id="email-hm"
+                               placeholder="deaguowl@naver.com" name="email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="emailHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Modal message -->
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">자기소개</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="message-hm">간단한 자기소개를 해주세요.</label>
+                        <input type="text" class="form-control" id="message-hm"
+                               placeholder="대구 북구에 살고 음악과 드라이브를 좋아하는 29살 남자입니다. " name="message">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="messageHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#username-hm").keypress(function (e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                usernameHM();
+            }
+        });
+
+
+        $('#password-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                passwordHM();
+            }
+        });
+
+        $('#password1-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                password1HM();
+            }
+        });
+
+        $('#name-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                nameHM();
+            }
+        });
+
+        $('#phone-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                phoneHM();
+            }
+        });
+
+        $('#email-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                emailHM();
+            }
+        });
+
+        $('#message-hm').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                messageHM();
+            }
+        });
+   });
+
+
+</script>
 
 {% endblock %}

@@ -1,15 +1,15 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django import forms
 
 class SignUpForm(forms.ModelForm):
 
     password = forms.CharField(label = 'Password', widget=forms.PasswordInput)
-    Repeat_password = forms.CharField(label = 'Repeat_password', widget=forms.PasswordInput )
-    phone = forms.CharField(label='phone', max_length=13)
+    Repeat_password = forms.CharField(label = 'Repeat_password', widget=forms.PasswordInput)
+    # phone = forms.CharField(label='phone', max_length=13)
 
     class Meta:
-        model = User
-        fields = [ 'username', 'password', 'Repeat_password', 'phone','email', ]
+        model = get_user_model()
+        fields = ['username', 'password', 'Repeat_password', 'name', 'phone', 'email', 'message']
 
     def clean_Repeat_password(self):
         cd = self.cleaned_data

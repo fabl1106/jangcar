@@ -23,22 +23,26 @@ margin: 7px;
 float: right;
 }
 
+h3 {
+font-weight:bold;
+padding: 15px 10px
+}
 
 {% endblock %}
 
 {% block content %}
 
 <div class="row"><h3>내가 등록한 장카</h3></div>
-<br>
 <!--{{ Drive.object.departure_date }}-->
 {% for object in objects %}
     <div class="row">
         <div class="col">
             <div class="main-button" id="deliver-date">
                 <div class="time-card"  onclick="launchDatePickerModal()" >
-                    <span id="infolabel"><a href="{% url 'drive:detail' object.id %}">출발 일자 : {{object.departure_date}}</a> 출발 시각 : {{ object.departure_time }}
-            <br>
-                    요금 : {{ object.fee }} 여정 : {{ object.detail_plan }}
+                    <span id="infolabel">
+                        출발지 : {{object.departure_area}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 도착지 : {{ object.arrive_area }}<br>
+                        <a href="{% url 'drive:detail' object.id %}">출발 일자 : {{ object.departure_date|date:"Y-m-d" }}</a>&nbsp&nbsp&nbsp&nbsp 출발 시각 : {{ object.departure_time }}
+<!--                    여정 : {{ object.detail_plan }}-->
                     </span>
                 </div>
             </div>

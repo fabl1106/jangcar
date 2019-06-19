@@ -210,6 +210,21 @@ margin: auto;
 transition: background 0.5s;
 }
 
+#submit1 {
+background: #007bff;
+padding: 20px 0px;
+text-align: center;
+width: 100%;
+max-width: 800px;
+height: 90px;
+border-radius: 10px;
+display: inline-block;
+<!--margin: 0px 10px;-->
+margin: auto;
+transition: background 0.5s;
+}
+
+
 #submit-cancel {
 background: #007bff;
 padding: 20px 0px;
@@ -224,12 +239,12 @@ margin: auto;
 transition: background 0.5s;
 }
 
-#left-check:hover, #right-check:hover, #deliver-date:hover, #deliver-time:hover, #detail-plan-hover:hover, #fee-hover:hover, #memo-hover:hover {
-background-color: #A9BCF5;
-cursor:pointer;
-}
+<!--#driver1:hover, #left-check:hover, #right-check:hover, #deliver-date:hover, #deliver-time:hover, #detail-plan-hover:hover, #fee-hover:hover, #memo-hover:hover {-->
+<!--background-color: #A9BCF5;-->
+<!--cursor:pointer;-->
+<!--}-->
 
-.time-card>#date, .time-hm-card>#time, .cost-card>#cost, .detail-plan-card>#detail-plan, .memo-card>#memo {
+.time-card>#date, .time-hm-card>#time, .cost-card>#cost, .detail-plan-card>#detail-plan, .memo-card>#memo, .driver-card>#driver, .phone-card>#phone{
 margin: 7px;
 float: right;
 }
@@ -238,26 +253,32 @@ float: right;
 
 {% block content %}
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{message.tag}}" style="text-align:center;">{{message}}</div>
-        {% endfor %}
-        {% endif %}
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="driver1">
+                <div class="driver-card" >
+                    <span id="infolabel0">운전자</span>
+                    <h5 id="driver">{{ object.user.name }}</h5>
+                    <!--                    <input type="hidden" id="date_key_input" name="departure_date" />-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="row">
 
-        <div class="places-card col check" id="left-check" onclick="launchModal('departure')">
+        <div class="places-card col check" id="left-check" >
             <span>출발지</span>
-            <h3 id="departure-label">--</h3>
+            <h3 id="departure-label">{{ object.departure_area }}</h3>
             <input type="hidden" name="departure_area" id="departure_key_input"/>
         </div>
         <div class="places-mid-button align-middle">
             <i class="fas fa-arrows-alt-h"></i>
         </div>
-        <div class="places-card col check" id="right-check" onclick="launchModal('arrival')">
+        <div class="places-card col check" id="right-check">
             <span>도착지</span>
-            <h3 id="arrival-label">--</h3>
+            <h3 id="arrival-label">{{ object.arrive_area }}</h3>
             <input type="hidden" name="arrive_area" id="arrive_key_input"/>
         </div>
     </div>
@@ -265,10 +286,10 @@ float: right;
     <div class="row">
         <div class="col">
             <div class="main-button" id="deliver-date">
-                <div class="time-card" onclick="launchDatePickerModal()">
+                <div class="time-card">
                     <span id="infolabel">출발 날짜</span>
-                    <h5 id="date">--</h5>
-<!--                    <input type="hidden" id="date_key_input" name="departure_date" />-->
+                    <h5 id="date">{{ object.departure_date|date:"Y-m-d" }}</h5>
+                    <!--                    <input type="hidden" id="date_key_input" name="departure_date" />-->
                 </div>
             </div>
 
@@ -278,9 +299,9 @@ float: right;
     <div class="row">
         <div class="col">
             <div class="main-button" id="deliver-time">
-                <div class="time-hm-card" onclick="launchTimeHMPickerModal()">
+                <div class="time-hm-card" >
                     <span id="infolabel2">출발 시간</span>
-                    <h5 id="time">--</h5>
+                    <h5 id="time">{{ object.departure_time }}</h5>
                 </div>
             </div>
         </div>
@@ -289,9 +310,20 @@ float: right;
     <div class="row">
         <div class="col">
             <div class="main-button" id="detail-plan-hover">
-                <div class="detail-plan-card" onclick="launchDetailPlanPickerModal()">
+                <div class="detail-plan-card">
                     <span id="infolabel3">상세 출발지 및 도착지</span>
-                    <h5 id="detail-plan">--</h5>
+                    <h5 id="detail-plan">{{ object.detail_plan }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" >
+                <div class="phone-card">
+                    <span id="infolabel7">연락 방법</span>
+                    <h5 id="phone"><a href="tel:{{object.connect}}">{{ object.connect }}</a></h5>
                 </div>
             </div>
         </div>
@@ -300,9 +332,9 @@ float: right;
     <div class="row">
         <div class="col">
             <div class="main-button" id="fee-hover">
-                <div class="cost-card" onclick="launchCostModal()">
+                <div class="cost-card" >
                     <span id="infolabel4">요금</span>
-                    <h5 id="cost">--</h5>
+                    <h5 id="cost">{{ object.fee }}</h5>
                 </div>
             </div>
         </div>
@@ -311,24 +343,27 @@ float: right;
     <div class="row">
         <div class="col">
             <div class="main-button" id="memo-hover">
-                <div class="memo-card" onclick="launchMemoModal()">
+                <div class="memo-card">
                     <span id="infolabel5">여정 소개</span>
-                    <h5 id="memo">--</h5>
+                    <h5 id="memo">{{ object.memo }}</h5>
                 </div>
             </div>
         </div>
     </div>
 
-    {% if user.is_authenticated %}
+    {% if request.user.id == object.user.id %}
     <div class="row">
         <div class="col">
-            <input type="submit" id="submit" class="btn btn-primary btn-lg" value="추가하기">
+            <a href="{% url 'drive:update' object.id %}"  id="submit" class="btn btn-primary btn-lg" style="padding-top:30px;">수정하기</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'drive:delete' object.id %}"  id="submit1" class="btn btn-primary btn-lg" style="padding-top:30px;">삭제하기</a>
         </div>
     </div>
     {% else %}
     <div class="row">
         <div class="col">
-            <input type="submit" id="submit-cancel" class="btn btn-primary btn-lg" value="로그인 이후 이용해주세요!">
+            <a href="/" id="submit-cancel" class="btn btn-primary btn-lg" style="padding-top:30px;">다른 여정 보기 </a>
         </div>
     </div>
     {% endif %}
@@ -417,7 +452,7 @@ float: right;
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="time-hm">출발 예정 시간</label>
+                        <label for="time-hm">출발 예 시간</label>
                         <input type="text" class="form-control" id="time-hm"
                                placeholder="24시간으로 적어주세요. ex) 08:00, 16:00" name="departure_time">
                     </div>
@@ -505,13 +540,8 @@ float: right;
         </div>
     </div>
 
-
 </form>
 
-{% endblock %}
-
-{% block bottom %}
-    <p class="bottomInfo">문의 : deaguowl@gmail.com</p>
 {% endblock %}
 
 {% block javascript %}
@@ -521,33 +551,32 @@ float: right;
         $('#submit-cancel').submit(function (e) {
             e.preventDefault();
             var input = confirm('회원가입 후 이용해주세요:)');
-
         });
 
         $('#detail-plan-hm').keypress(function (e) {
+            e.preventDefault();
             if (e.keyCode == 13) {
-                e.preventDefault();
                 selectdetailHM();
             }
         });
 
         $('#cost-hm').keypress(function (e) {
+            e.preventDefault();
             if (e.keyCode == 13) {
-                e.preventDefault();
                 selectCostModal();
             }
         });
 
         $('#memo-hm').keypress(function (e) {
+            e.preventDefault();
             if (e.keyCode == 13) {
-                e.preventDefault();
                 selectMemoModal();
             }
         });
 
         $('#time-hm').keypress(function (e) {
+            e.preventDefault();
             if (e.keyCode == 13) {
-                e.preventDefault();
                 selectTimeHM();
             }
         });

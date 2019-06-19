@@ -1,0 +1,11 @@
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
+class MediaStorage(S3Boto3Storage):
+    location = ""
+    bucket_name = 'jangcar.jangcar.co.kr'
+    region_name = 'ap-northeast-2'
+    custom_domain = '%s' %(bucket_name)
+    file_overwrite = False
+
+

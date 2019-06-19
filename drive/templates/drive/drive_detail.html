@@ -32,7 +32,7 @@ transition: background 0.5s;
 <div class="row" id="main-button">
     <ul class="list-group">
 <!--        <li class="list-group-item">운전자 : {{ user.username }}</li>-->
-        <li class="list-group-item">운전자 : {{ object.user }}</li>
+        <li class="list-group-item">운전자 : {{ object.user.name }}</li>
         <li class="list-group-item">출발지 : {{object.departure_area}}</li>
         <li class="list-group-item">도착지 : {{object.arrive_area}}</li>
         <li class="list-group-item">출발 날짜 : {{ object.departure_date }}</li>
@@ -41,7 +41,9 @@ transition: background 0.5s;
         <li class="list-group-item">요금 : {{ object.fee }}</li>
         <li class="list-group-item">연락 방법 : {{ object.connect }}</li>
         <li class="list-group-item">메모 : {{ object.memo }}</li>
+        {% if request.user.id == object.user.id %}
         <li class="list-group-item"><a href="{% url 'drive:update' object.id %}">수정하기   </a>      <a href="{% url 'drive:delete' object.id %}">삭제하기</a></li>
+        {% endif %}
     </ul>
 </div>
 

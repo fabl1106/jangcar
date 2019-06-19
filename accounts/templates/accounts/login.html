@@ -5,27 +5,28 @@
 {% block css %}
 
 #main-button {
-padding: 20px 0px;
-text-align: center;
-width: 400px;
-height: 500px;
-max-width: 400px;
+padding: 27px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-margin: 0px 10px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
+
 
 {% endblock %}
 
 {% block content %}
 <div class="row" id="main-button">
         <div class="alert alert-primary" role="alert">
-            Please enter your login information. </div>
+        아이디와 비밀번호를 입력해주세요!</div>
         <form action="" method="post">
             {% csrf_token %}
             {{form.as_p}}
-            <input type="submit" value="login" class = 'btn btn-outline-primary'>
+            <input type="submit" value="login" class ='btn btn-outline-primary btn-lg'>
         </form>
 </div>
 {% endblock %}

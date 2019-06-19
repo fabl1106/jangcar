@@ -25,16 +25,22 @@ def drive_create(request):
             path = urlparse(referer_url).path
             return HttpResponseRedirect(path)
         form = DriveRegisterForm(request.POST)
+        print(request.user.id)
+
+        # print(form.instance.user)
         form.instance.user_id = request.user.id
         # form.connect = request.user.phone
-        print("1")
         if form.is_valid():
-            print(3)
             form.save()
-            print("2")
             # return redirect(instance)
-            return redirect('/')
+            Drive_list = Drive.objects.filter(user=request.user.id)
+            return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
             # return render(request, 'drive/drive_mylist.html')
+        else:
+            messages.warning(request, '모든 항목을 다 추가해주세요:)')
+            referer_url = request.META.get('HTTP_REFERER')
+            path = urlparse(referer_url).path
+            return HttpResponseRedirect(path)
     else:
         form = DriveRegisterForm()
 
@@ -42,17 +48,20 @@ def drive_create(request):
 
 def drive_update(request, pk):
     drive = get_object_or_404(Drive, pk=pk)
-
     if request.method == "POST":
         form = DriveRegisterForm(request.POST, instance=drive)
+        form.instance.user_id = request.user.id
+        print("1")
         if form.is_valid():
-            instance = form.save()
+            print("2")
+            # instance = form.save()
+            print("3")
+            drive = form.save()
             Drive_list = Drive.objects.filter(user=request.user.id)
             return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
     else:
-
         form = DriveRegisterForm(instance=drive)
-        return render(request, 'drive/drive_update.html', {'form':form})
+        return render(request, 'drive/drive_update.html', {'form':form, 'object':drive})
 
 def drive_delete(request, pk):
 
@@ -91,12 +100,12 @@ def drive_list(request):
             return render(request, 'drive/drive_list.html', {'objects':check_plan, 'departure':departure_key, 'arrive':arrive_key, 'date':date_key})
 
     if request.method == "GET":
-        return render(request, 'drive/drive_main.html')
+        return render(request, 'drive/drive_main1.html')
 
 
 class DriveDetail(DetailView):
     model = Drive
-    template_name = 'drive/drive_detail.html'
+    template_name = 'drive/drive_detail1.html'
 
 
 def drive_mylist(request):

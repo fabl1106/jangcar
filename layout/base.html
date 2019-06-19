@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Mitr|Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!--    <script type='text/javascript' src='//code.jquery.com/jquery-1.8.3.js'></script>-->
-    <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Mitr|Noto+Sans+KR&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -24,6 +24,7 @@
 <body>
 
 <style>
+
 
     body {
         background-color: #f8f8f8
@@ -77,10 +78,31 @@
         text-align:right;
         float: right;
     }
+
+    #container1{
+        height: 100vh;
+        position:relative;
+    }
+
+    #bottom {
+        width: 100%;
+    }
+
+    .bottomInfo {
+        width: 100%;
+        text-align: right;
+        bottom: 0px;
+        position: absolute;
+
+
+
+
+    }
+
 </style>
 
 
-<div class=container>
+<div class="container" id="container1">
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/"><h1 style="margin-top: 50px; margin-left:0px;">JangCar</h1></a>
     </nav>
@@ -103,17 +125,17 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'drive:mylist' %}"
-                       style="padding: 20px 10px 20px 0px">내가 등록한 장카</a>
+                       style="padding: 20px 10px 20px 0px">등록한 장카</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:logout' %}"
-                       style="padding: 20px 0px 20px 10px">Logout</a>
+                       style="padding: 20px 0px 15px 10px">로그아웃</a>
                 </li>
 
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:login' %}"
-                       style="padding: 20px 10px 20px 20px">Login</a>
+                       style="padding: 20px 10px 20px 20px">로그</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:signup' %}"
@@ -132,7 +154,12 @@
             </div>
 <!--            <div class="col"></div>-->
         </div>
+<!--        <div class="row " id="bottom" style="right:0px;">-->
+<!--            <span class="bottomInfo">궁금증 및 문의사항은 deaguowl@gmail.com</span>-->
+<!--        </div>-->
     </div>
+    {% block bottom %}
+    {% endblock %}
 </div>
 
 

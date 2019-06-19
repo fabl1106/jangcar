@@ -1,10 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.views.generic.base import View
 
 from accounts import *
 
 from .forms import SignUpForm
+
+
+def signupbefore(request):
+    if request.method == "GET":
+        return render(request, 'accounts/signup_before.html')
+
 
 def signup(request):
     if request.method == 'POST':

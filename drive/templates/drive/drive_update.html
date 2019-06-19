@@ -31,20 +31,24 @@
 
     var activeDeparture;
     var activeArrival;
-    var date;
 
     function applyInfo() {
         $('#departure-label').text(activeDeparture);
         $('#departure_key_input').val(activeDeparture);
+        // $('#arrival-label').text(activeArrival);
+        // $('#arrive_key_input').val(activeArrival);
+
+        // if (date) {
+        //     $('#date').text((date.getFullYear()) + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일');
+        //     $('#date_key_input').val($.datepicker.formatDate('yy-mm-dd', date));
+        // }
+
+
+    }
+
+    function applyInfo1(){
         $('#arrival-label').text(activeArrival);
         $('#arrive_key_input').val(activeArrival);
-
-        if (date) {
-            $('#date').text((date.getFullYear()) + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일');
-            $('#date_key_input').val($.datepicker.formatDate('yy-mm-dd', date));
-        }
-
-
     }
 
     function launchModal(option) {
@@ -52,13 +56,15 @@
         $('.place-list-item').off('click').click(function () {
             if (option == 'departure') {
                 activeDeparture = $(this).data('place');
+                applyInfo();
             } else if (option == 'arrival') {
                 activeArrival = $(this).data('place');
+                applyInfo1();
             }
             if ($('#places-modal').is(':visible')) {
                 $('#places-modal').modal('hide');
             }
-            applyInfo();
+            // applyInfo();
         })
 
         if (option == 'departure') {
@@ -81,10 +87,15 @@
     }
 
     function selectDateModal() {
-        date = new Date($('#datepicker').datepicker('getFormattedDate'));
+        var date = new Date($('#datepicker').datepicker('getFormattedDate'));
         console.log(date);
+        DateHM = date;
         $('#date-modal').modal('hide');
-        applyInfo();
+        if (DateHM) {
+            $('#date').text((date.getFullYear()) + '년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일');
+            $('#date_key_input').val($.datepicker.formatDate('yy-mm-dd', date));
+        }
+        ;
     }
 
     function launchTimeHMPickerModal() {
@@ -249,16 +260,16 @@ float: right;
 
         <div class="places-card col check" id="left-check" onclick="launchModal('departure')">
             <span>출발지</span>
-            <h3 id="departure-label">--</h3>
-            <input type="hidden" name="departure_area" id="departure_key_input"/>
+            <h3 id="departure-label">{{ object.departure_area }}</h3>
+            <input type="hidden" name="departure_area"  value="{{ object.departure_area }}" id="departure_key_input"/>
         </div>
         <div class="places-mid-button align-middle">
             <i class="fas fa-arrows-alt-h"></i>
         </div>
         <div class="places-card col check" id="right-check" onclick="launchModal('arrival')">
             <span>도착지</span>
-            <h3 id="arrival-label">--</h3>
-            <input type="hidden" name="arrive_area" id="arrive_key_input"/>
+            <h3 id="arrival-label">{{ object.arrive_area }}</h3>
+            <input type="hidden" name="arrive_area" value="{{ object.arrive_area }}"id="arrive_key_input"/>
         </div>
     </div>
 
@@ -267,7 +278,7 @@ float: right;
             <div class="main-button" id="deliver-date">
                 <div class="time-card" onclick="launchDatePickerModal()">
                     <span id="infolabel">출발 날짜</span>
-                    <h5 id="date">--</h5>
+                    <h5 id="date">{{ object.departure_date|date:"Y-m-d"}}</h5>
                     <!--                    <input type="hidden" id="date_key_input" name="departure_date" />-->
                 </div>
             </div>
@@ -280,7 +291,7 @@ float: right;
             <div class="main-button" id="deliver-time">
                 <div class="time-hm-card" onclick="launchTimeHMPickerModal()">
                     <span id="infolabel2">출발 시간</span>
-                    <h5 id="time">--</h5>
+                    <h5 id="time">{{ object.departure_time }}</h5>
                 </div>
             </div>
         </div>
@@ -291,7 +302,7 @@ float: right;
             <div class="main-button" id="detail-plan-hover">
                 <div class="detail-plan-card" onclick="launchDetailPlanPickerModal()">
                     <span id="infolabel3">상세 출발지 및 도착지</span>
-                    <h5 id="detail-plan">--</h5>
+                    <h5 id="detail-plan">{{ object.detail_plan }}</h5>
                 </div>
             </div>
         </div>
@@ -302,7 +313,7 @@ float: right;
             <div class="main-button" id="fee-hover">
                 <div class="cost-card" onclick="launchCostModal()">
                     <span id="infolabel4">요금</span>
-                    <h5 id="cost">--</h5>
+                    <h5 id="cost">{{ object.fee }}</h5>
                 </div>
             </div>
         </div>
@@ -313,7 +324,7 @@ float: right;
             <div class="main-button" id="memo-hover">
                 <div class="memo-card" onclick="launchMemoModal()">
                     <span id="infolabel5">여정 소개</span>
-                    <h5 id="memo">--</h5>
+                    <h5 id="memo">{{ object.memo }}</h5>
                 </div>
             </div>
         </div>
@@ -325,14 +336,7 @@ float: right;
             <input type="submit" id="submit" class="btn btn-primary btn-lg" value="수정하기">
         </div>
     </div>
-    {% else %}
-    <div class="row">
-        <div class="col">
-            <input type="submit" id="submit-cancel" class="btn btn-primary btn-lg" value="로그인 이후 이용해주세요!">
-        </div>
-    </div>
     {% endif %}
-
     <!-- Modal -->
     <div class="modal fade" id="date-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -345,7 +349,7 @@ float: right;
                 </div>
                 <div class="modal-body">
                     <div id="datepicker" style="width:400px;"></div>
-                    <input type="hidden" id="date_key_input" name="departure_date">
+                    <input type="hidden" id="date_key_input" name="departure_date" value="{{ object.departure_date|date:'Y-m-d'}}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -417,8 +421,8 @@ float: right;
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="time-hm">출발 예 시간</label>
-                        <input type="text" class="form-control" id="time-hm"
+                        <label for="time-hm">출발 예정 시간</label>
+                        <input type="text" class="form-control" id="time-hm" value="{{ object.departure_time }}"
                                placeholder="24시간으로 적어주세요. ex) 08:00, 16:00" name="departure_time">
                     </div>
                 </div>
@@ -443,7 +447,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="detail-plan-hm">상세 출발지와 도착지를 적어주세요</label>
-                        <input type="text" class="form-control" id="detail-plan-hm" placeholder="ex) 서울 성수역에서 대구 동성로까지"
+                        <input type="text" class="form-control" value="{{ object.detail_plan }}" id="detail-plan-hm" placeholder="ex) 서울 성수역에서 대구 동성로까지"
                                name="detail_plan">
                     </div>
                 </div>
@@ -469,7 +473,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="cost-hm">요금 및 요구사항</label>
-                        <input type="text" class="form-control" id="cost-hm" placeholder="10000원" name="fee">
+                        <input type="text" class="form-control" id="cost-hm" value="{{ object.fee }}" placeholder="10000원" name="fee">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -493,7 +497,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="memo-hm">간단한 여정소개를 해주세요!</label>
-                        <input type="text" class="form-control" id="memo-hm" placeholder="좋아하는 음악을 들으면서 가요!"
+                        <input type="text" class="form-control" id="memo-hm" value="{{ object.memo }}" placeholder="좋아하는 음악을 들으면서 가요!"
                                name="memo">
                     </div>
                 </div>
@@ -514,34 +518,38 @@ float: right;
 <script type="text/javascript">
     $(function () {
         $('#submit-cancel').submit(function (e) {
-            e.preventDefault();
             var input = confirm('회원가입 후 이용해주세요:)');
+            e.preventDefault();
         });
 
         $('#detail-plan-hm').keypress(function (e) {
-            e.preventDefault();
+
             if (e.keyCode == 13) {
+                e.preventDefault();
                 selectdetailHM();
             }
         });
 
         $('#cost-hm').keypress(function (e) {
-            e.preventDefault();
+
             if (e.keyCode == 13) {
+                e.preventDefault();
                 selectCostModal();
             }
         });
 
         $('#memo-hm').keypress(function (e) {
-            e.preventDefault();
+
             if (e.keyCode == 13) {
+                e.preventDefault();
                 selectMemoModal();
             }
         });
 
         $('#time-hm').keypress(function (e) {
-            e.preventDefault();
+
             if (e.keyCode == 13) {
+                e.preventDefault();
                 selectTimeHM();
             }
         });
