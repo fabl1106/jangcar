@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>JANGCAR</title>
 
     <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Mitr|Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,6 +15,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="장거리 카풀은 장카!">
+    <meta property="og:url" content="https://www.jangcar.co.kr">
+    <meta property="og:description" content="누구나 손쉽게 이용하는 장거리카풀">
+
 {% block head %}
 
 {% endblock %}
@@ -135,7 +140,7 @@
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:login' %}"
-                       style="padding: 20px 10px 20px 20px">로그</a>
+                       style="padding: 20px 10px 20px 20px">로그인</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:signup' %}"
