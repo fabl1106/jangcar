@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': secret.ENGINE,
-        'NAME': secret.NAME,
-        'USER' : secret.USER,
-        'PASSWORD' : secret.PASSWORD,
-        'HOST' : secret.HOST,
-        'PORT' : secret.PORT,
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'jangcar',
+        'USER' : 'deaguowl_jangcar',
+        'PASSWORD' : 'wmfdlsel1!!',
+        'HOST' : 'jangcar.cbqp2wsvodhv.ap-northeast-2.rds.amazonaws.com',
+        'PORT' : '7432',
     }
 }
 
@@ -134,8 +134,8 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 
-AWS_ACCESS_KEY_ID = secret.AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = secret.AWS_SECRET_ACCESS_KEY
+AWS_ACCESS_KEY_ID = 'AKIA57FSQHPIB6JMGOET'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_REGION = 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME = 'jangcar.jangcar.co.kr'
 AWS_S3_CUSTOM_DOMAIN = '%s' % (AWS_STORAGE_BUCKET_NAME)
