@@ -131,7 +131,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-import secret
+from config import secret
 
 AWS_ACCESS_KEY_ID = secret.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = secret.AWS_SECRET_ACCESS_KEY
