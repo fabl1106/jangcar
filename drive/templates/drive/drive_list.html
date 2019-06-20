@@ -18,6 +18,21 @@ margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
 
+.main-button1 {
+background: #ffffff;
+padding: 15px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
+border-radius: 10px;
+display: inline-block;
+height: 90px;
+margin: 0px 0px 20px 0px;
+font-size: 18px;
+transition: background 0.5s;
+}
+
 .time-card>#date, .time-hm-card>#time, .cost-card>#cost, .detail-plan-card>#detail-plan, .memo-card>#memo {
 margin: 7px;
 float: right;
@@ -38,27 +53,25 @@ padding: 10px 10px
 
 <div class="row"><h2>등록된 장카</h2></div>
 
-<div class="row"><h4>{{ departure }} TO {{ arrive }}, {{ date }}</h4></div>
+<div class="row"><h4>{{ departure }} - {{ arrive }} &nbsp&nbsp {{ date }}</h4></div>
 
 <!--{{ Drive.object.departure_date }}-->
 
     {% for object in objects %}
         <div class="row">
             <div class="col">
-                <div class="main-button" id="deliver-date">
-                    <div class="time-card"  onclick="launchDatePickerModal()" >
+                <div class="main-button1" id="deliver-date">
                         {% if user.is_authenticated %}
-                        <span id="infolabel"><a href="{% url 'drive:detail' object.id %}">출발 시각 : {{ object.departure_time }}</a>&nbsp&nbsp&nbsp&nbsp 요금 : {{ object.fee }}
+                        <span id="infolabel"><a href="{% url 'drive:detail' object.id %}">출발 시각 : {{ object.departure_time }}</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 요금 : {{ object.fee }}
                 <br>
                          상세 여정 : {{ object.detail_plan }}
                         </span>
                         {% else %}
-                        <span id="infolabel1"><a href="{% url 'accounts:signupbefore' %}">출발 시각 : {{ object.departure_time }}</a>&nbsp&nbsp&nbsp&nbsp 요금 : {{ object.fee }}
+                        <span id="infolabel1"><a href="{% url 'accounts:signupbefore' %}">출발 시각 : {{ object.departure_time }}</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 요금 : {{ object.fee }}
                 <br>
                             상세 여정 : {{ object.detail_plan }}
                         </span>
                         {% endif %}
-                    </div>
                 </div>
             </div>
         </div>

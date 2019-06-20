@@ -82,18 +82,10 @@ def drive_list(request):
         departure_key = request.POST.get('departure_key', None)
         arrive_key = request.POST.get('arrive_key', None)
         date_key = request.POST.get('date_key', None)
-        print(departure_key)
-        print(arrive_key)
-        print(date_key)
-
 
         departure_area_q = Q(departure_area__icontains=departure_key)
         arrive_area_q = Q(arrive_area__icontains=arrive_key)
         date_q = Q(departure_date__icontains=date_key)
-
-        print(departure_area_q)
-        print(arrive_area_q)
-        print(date_q)
 
         if queryset:
             check_plan = get_list_or_404(queryset, departure_area_q & arrive_area_q & date_q )

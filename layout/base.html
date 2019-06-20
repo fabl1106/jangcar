@@ -19,17 +19,7 @@
     <meta property="og:title" content="장거리 카풀은 장카!">
     <meta property="og:url" content="https://www.jangcar.co.kr">
     <meta property="og:description" content="누구나 손쉽게 이용하는 장거리카풀">
-
-{% block head %}
-
-{% endblock %}
-
-</head>
-
-<body>
-
-<style>
-
+    <style>
 
     body {
         background-color: #f8f8f8
@@ -54,12 +44,13 @@
 
         display: inline-block;
     }
+
     /*.container{*/
     /*    margin-left:auto;*/
     /*    margin-right:auto;*/
     /*    width : 100%;*/
-    /*    max-width : 800px;*/
-    /*    min-width : 500px;*/
+    /*    max-width : 1000px;*/
+    /*    min-width : 600px;*/
     /*}*/
 
     .main-content {
@@ -67,7 +58,7 @@
         margin-right:auto;
         width : 100%;
         max-width : 700px;
-        min-width : 500px;
+        min-width : 600px;
     }
 
     .navbar-light{
@@ -84,27 +75,17 @@
         float: right;
     }
 
-    #container1{
-        height: 100vh;
-        position:relative;
-    }
 
-    #bottom {
-        width: 100%;
-    }
-
-    .bottomInfo {
-        width: 100%;
-        text-align: right;
-        bottom: 0px;
-        position: absolute;
+    </style>
 
 
+{% block head %}
 
+{% endblock %}
 
-    }
+</head>
 
-</style>
+<body>
 
 
 <div class="container" id="container1">
@@ -163,9 +144,14 @@
 <!--            <span class="bottomInfo">궁금증 및 문의사항은 deaguowl@gmail.com</span>-->
 <!--        </div>-->
     </div>
-    {% block bottom %}
-    {% endblock %}
+    <div class="row">
+        {% block bottom %}
+        {% endblock %}
+    </div>
+
+
 </div>
+
 
 
     {% block javascript %}
