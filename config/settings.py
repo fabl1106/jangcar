@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+from config import secret
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -76,14 +76,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'jangcar',
-        'USER' : 'deaguowl',
-        'PASSWORD' : 'wmfdlsel1!',
-        'HOST' : 'jangcar.cbqp2wsvodhv.ap-northeast-2.rds.amazonaws.com',
-        'PORT' : '7432',
+        'ENGINE': secret.ENGINE,
+        'NAME': secret.NAME,
+        'USER' : secret.USER,
+        'PASSWORD' : secret.PASSWORD,
+        'HOST' : secret.HOST,
+        'PORT' : secret.PORT,
     }
 }
 
@@ -131,7 +132,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-from config import secret
+
 
 AWS_ACCESS_KEY_ID = secret.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = secret.AWS_SECRET_ACCESS_KEY
