@@ -321,7 +321,6 @@ padding: 0px 0px 10px 0px;
     <div class="row bottom-main"><h3>최근 등록된 장카</h3></div>
 
     {% for object in object_list %}
-        {% if forloop.counter <= 5 %}
     <div class="row"><h5>{{ object.departure_area }} - {{ object.arrive_area }} &nbsp&nbsp ({{ object.departure_date|date:"m월 d일" }})</h5></div>
             <div class="row">
                 <div class="col">
@@ -333,7 +332,6 @@ padding: 0px 0px 10px 0px;
                     </div>
                 </div>
             </div>
-    {% endif %}
     {% endfor %}
 
     <div class="row bottom-main"><h3>고객센터 안내</h3></div>

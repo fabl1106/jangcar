@@ -16,6 +16,14 @@ class Main(ListView):
     model = Drive
     template_name = 'drive/drive_main1.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Drive.objects.all().order_by('-pk')[:5]
+        return context
+
+
+
+
 def drive_create(request):
 
     if request.method == "POST":
