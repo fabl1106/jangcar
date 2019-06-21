@@ -83,9 +83,10 @@
     function passwordHM() {
         var value = document.querySelectorAll("input#password-hm")[0].value;
         passwordHM_value = value;
+        password_len = passwordHM_value.length;
         $('#password-modal').modal('hide');
         if (passwordHM_value) {
-            $('h5#password').text(passwordHM_value);
+            $('h5#password').text(Array(password_len).join("*"));
             $('h5#password-hm').val(passwordHM_value);
         }
         ;
@@ -100,9 +101,10 @@
     function password1HM() {
         var value = document.querySelectorAll("input#password1-hm")[0].value;
         password1HM_value = value;
+        password1_len = password1HM_value.length
         $('#password1-modal').modal('hide');
         if (password1HM_value) {
-            $('h5#password1').text(password1HM_value);
+            $('h5#password1').text(Array(password1_len).join("*"));
             $('h5#password1-hm').val(password1HM_value);
         }
         ;
@@ -236,7 +238,11 @@ float: right;
 
 <form action="" method="POST">
     {% csrf_token %}
-
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tag}}" style="text-align:center;">{{message}}</div>
+    {% endfor %}
+    {% endif %}
     <div class="row">
         <div class="col">
             <div class="main-button" id="username-hover">
@@ -359,7 +365,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="password-hm">사용할 비밀번호를 입력해주세요.</label>
-                        <input type="text" class="form-control" id="password-hm"
+                        <input type="password" class="form-control" id="password-hm"
                                placeholder="******" name="password">
                     </div>
                 </div>
@@ -384,7 +390,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="password1-hm">비밀번호를 다시 한번 입력주세요.</label>
-                        <input type="text" class="form-control" id="password1-hm"
+                        <input type="password" class="form-control" id="password1-hm"
                                placeholder="******" name="Repeat_password">
                     </div>
                 </div>
@@ -410,7 +416,7 @@ float: right;
                     <div class="form-group">
                         <label for="name-hm">성함을 입력해주세요.</label>
                         <input type="text" class="form-control" id="name-hm"
-                               placeholder="김장카" name="name">
+                               placeholder="김장카(꼭 실명으로 적어주세요)" name="name">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -459,7 +465,7 @@ float: right;
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="email-hm">이메일을 입력해주세요.</label>
-                        <input type="text" class="form-control" id="email-hm"
+                        <input type="email" class="form-control" id="email-hm"
                                placeholder="deaguowl@naver.com" name="email">
                     </div>
                 </div>
