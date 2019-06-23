@@ -62,10 +62,7 @@
 
     function usernameHM() {
         var value = document.querySelectorAll("input#username-hm")[0].value;
-        console.log("usernameHM")
         usernameHM_value = value;
-        console.log('username1')
-        console.log(usernameHM_value)
         $('#username-modal').modal('hide');
         if (usernameHM_value) {
             $('h5#username').text(usernameHM_value);
@@ -86,7 +83,7 @@
         password_len = passwordHM_value.length;
         $('#password-modal').modal('hide');
         if (passwordHM_value) {
-            $('h5#password').text(Array(password_len).join("*"));
+            $('h5#password').text("*".repeat(password_len));
             $('h5#password-hm').val(passwordHM_value);
         }
         ;
@@ -104,7 +101,7 @@
         password1_len = password1HM_value.length
         $('#password1-modal').modal('hide');
         if (password1HM_value) {
-            $('h5#password1').text(Array(password1_len).join("*"));
+            $('h5#password1').text("*".repeat(password1_len));
             $('h5#password1-hm').val(password1HM_value);
         }
         ;

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<script type='text/javascript'>
+
+function launchUsernameModal() {
+        $('#username-modal').modal({
+            show: true
+        });
+    }
+
+function usernameHM() {
+    var value = document.querySelectorAll("input#username-hm")[0].value;
+    usernameHM_value = value;
+    $('#username-modal').modal('hide');
+    if (usernameHM_value) {
+        $('h5#username').text(usernameHM_value);
+        $('h5#username-hm').val(usernameHM_value);
+    }
+    ;
+}
+
+function launchPasswordModal() {
+        $('#password-modal').modal({
+            show: true
+        });
+    }
+
+function passwordHM() {
+    var value = document.querySelectorAll("input#password-hm")[0].value;
+    passwordHM_value = value;
+    password_len = passwordHM_value.length;
+    $('#password-modal').modal('hide');
+    if (passwordHM_value) {
+        $('h5#password').text("*".repeat(password_len));
+        $('h5#password-hm').val(passwordHM_value);
+    }
+    ;
+}
+
+
+
+
+</script>
+
+{% endblock %}
+
+{% block css %}
+
+.main-button {
+background: #ffffff;
+padding: 27px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
+border-radius: 10px;
+display: inline-block;
+margin: 0px 0px 20px 0px;
+transition: background 0.5s;
+}
+
+#submit {
+background: #007bff;
+padding: 20px 0px;
+text-align: center;
+width: 100%;
+max-width: 800px;
+height: 90px;
+border-radius: 10px;
+display: inline-block;
+<!--margin: 0px 10px;-->
+margin: auto;
+transition: background 0.5s;
+}
+
+#username-hover:hover, #password-hover:hover {
+background-color: #A9BCF5;
+cursor:pointer;
+}
+
+.username-card>#username, .password-card>#password {
+margin: 7px;
+float: right;
+}
+
+{% endblock %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tag}}" style="text-align:center;">{{message}}</div>
+    {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="username-hover">
+                <div class="username-card" onclick="launchUsernameModal()">
+                    <span id="infolabel">아이디</span>
+                    <h5 id="username">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="main-button" id="password-hover">
+                <div class="password-card" onclick="launchPasswordModal()">
+                    <span id="infolabel2">비밀번호</span>
+                    <h5 id="password">--</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col">
+        <input type="submit" id="submit" class="btn btn-primary btn-lg" value="로그인하기">
+    </div>
+    </div>
+</form>
+    <!-- Modal ID -->
+    <div class="modal fade" id="username-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">아이디</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="username-hm">아이디를 입력해주세요</label>
+                        <input type="text" class="form-control" id="username-hm"
+                               placeholder="deaguowl" name="username">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:usernameHM();">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal password -->
+    <div class="modal fade" id="password-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">비밀번호</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password-hm">비밀번호를 입력해주세요.</label>
+                        <input type="password" class="form-control" id="password-hm"
+                               placeholder="******" name="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="passwordHM()">선택</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
