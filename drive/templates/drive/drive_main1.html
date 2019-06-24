@@ -324,7 +324,7 @@ padding: 0px 0px 10px 0px;
     <div class="row"><h5>{{ object.departure_area }} - {{ object.arrive_area }} &nbsp&nbsp ({{ object.departure_date|date:"m월 d일" }})</h5></div>
             <div class="row">
                 <div class="col">
-                    <div class="main-button1" id="deliver-date1">
+                    <div class="main-button1" id="deliver-date1" style='cursor:pointer' onclick="location.href='{% url 'drive:detail' object.id %}';">
                             <span id="infolabel10"><a href="{% url 'drive:detail' object.id %}" id="down-point">출발 시각 : {{ object.departure_time }}</a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 요금 : {{ object.fee }}
                     <br>
                              상세 여정 : {{ object.detail_plan }}
