@@ -26,8 +26,6 @@ transition: background 0.5s;
         <form action="" method="post">
             {% csrf_token %}
             {{form.as_p}}
-<!--            <p>아이디 : {{form.username}} </p>-->
-<!--            <p>비밀번호 : {{ form.password }}</p>-->
             <input type="submit" value="login" class ='btn btn-outline-primary btn-lg'>
         </form>
 </div>

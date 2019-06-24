@@ -6,7 +6,6 @@ db.sqlite3
 .DS_Store
 git
 .idea/
-/config/secret.py
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
