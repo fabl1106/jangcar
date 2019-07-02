@@ -1,5 +1,5 @@
 from django.contrib import admin
-from drive.models import Drive
+from .models import Drive
 
 class DriveOption(admin.ModelAdmin):
     list_display = ['id', 'user', 'departure_area', 'arrive_area', 'departure_date']
