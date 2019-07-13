@@ -14,8 +14,9 @@ from .forms import DriveRegisterForm
 
 class Main(ListView):
     model = Drive
-    template_name = 'drive/drive_main1.html'
+    template_name = 'drive/drive_main.html'
 
+    # 해당 class형 뷰에서 get_context_data를 통해서 원하는 자료만을 넘겨주도록 설정
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = Drive.objects.all().order_by('-pk')[:5]
@@ -27,55 +28,56 @@ class Main(ListView):
 def drive_create(request):
 
     if request.method == "POST":
+        # 로그인이 안되어 있으면
         if not request.user.is_authenticated:
             messages.warning(request, '간단한 회원가입 이후 이용가능합니다 :)')
+            # 이전 url로 다시 이동하도록 하기
             referer_url = request.META.get('HTTP_REFERER')
             path = urlparse(referer_url).path
             return HttpResponseRedirect(path)
         form = DriveRegisterForm(request.POST)
-        print(request.user.id)
+        # print(request.user.id)
 
-        # print(form.instance.user)
+        # form에 생성되는 user_id를 요청한 user.id와 동일하도록 한다.
         form.instance.user_id = request.user.id
-        # form.connect = request.user.phone
         if form.is_valid():
             form.save()
-            # return redirect(instance)
+            # 해당 drive_list에서 요청한 user가 작성한 것만 filter해와서 render
             Drive_list = Drive.objects.filter(user=request.user.id)
             return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
-            # return render(request, 'drive/drive_mylist.html')
         else:
+            # 만약에 폼이 다 안채워졌다면 message 송출
             messages.warning(request, '모든 항목을 다 추가해주세요:)')
             referer_url = request.META.get('HTTP_REFERER')
             path = urlparse(referer_url).path
             return HttpResponseRedirect(path)
     else:
+        # get으로 요청이 올 때는 form만 만들어서 송부해준다.
         form = DriveRegisterForm()
 
-    return render(request, 'drive/drive_create2.html', {'form':form})
+    return render(request, 'drive/drive_create.html', {'form':form})
 
 def drive_update(request, pk):
+    # 해당 요청온 pk의 값을 받아서 drive에 넣어서
     drive = get_object_or_404(Drive, pk=pk)
     if request.method == "POST":
         form = DriveRegisterForm(request.POST, instance=drive)
         form.instance.user_id = request.user.id
-        print("1")
         if form.is_valid():
-            print("2")
-            # instance = form.save()
-            print("3")
-            drive = form.save()
+            form.save()
+            # drive = form.save()
             Drive_list = Drive.objects.filter(user=request.user.id)
             return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
     else:
+        # get형태로 오면 기존에 instance에 drive를 넣어서 form을 반환
         form = DriveRegisterForm(instance=drive)
         return render(request, 'drive/drive_update.html', {'form':form, 'object':drive})
 
 def drive_delete(request, pk):
-
     drive = get_object_or_404(Drive, pk=pk)
 
     if request.method == "GET":
+        # get요청으로 오면 그냥 바로 지운다.
         drive.delete()
         Drive_list = Drive.objects.filter(user=request.user.id)
         return render(request, 'drive/drive_mylist.html', {'objects': Drive_list} )
@@ -86,7 +88,8 @@ def drive_delete(request, pk):
 def drive_list(request):
 
     if request.method == "POST":
-        queryset = Drive.objects.all()
+        # 등록된 최신순으로 나올 수 있도록 변경. 추후에 시간의 역순으로 나올 수 있도록 해주고 싶다.
+        queryset = Drive.objects.all().order_by('-pk')
         departure_key = request.POST.get('departure_key', None)
         arrive_key = request.POST.get('arrive_key', None)
         date_key = request.POST.get('date_key', None)
@@ -97,18 +100,19 @@ def drive_list(request):
 
         if queryset:
             check_plan = get_list_or_404(queryset, departure_area_q & arrive_area_q & date_q )
-            return render(request, 'drive/drive_list.html', {'objects':check_plan, 'departure':departure_key, 'arrive':arrive_key, 'date':date_key})
+            return render(request, 'drive/drive_list.html', {'object_list':check_plan, 'departure':departure_key, 'arrive':arrive_key, 'date':date_key})
 
     if request.method == "GET":
-        return render(request, 'drive/drive_main1.html')
+        return render(request, 'drive/drive_main.html')
 
 
 class DriveDetail(DetailView):
     model = Drive
-    template_name = 'drive/drive_detail1.html'
+    template_name = 'drive/drive_detail.html'
 
 
 def drive_mylist(request):
+    # 로그인이 안되어있으면, 그냥 창 띄어주기
     if not request.user.is_authenticated:
         return render(request, 'drive/drive_mylist.html')
     else:
@@ -116,14 +120,14 @@ def drive_mylist(request):
         if not Drive_list:
             return render(request, 'drive/drive_mylist.html')
 
-        return render(request, 'drive/drive_mylist.html', {'objects': Drive_list})
+        return render(request, 'drive/drive_mylist.html', {'object_list': Drive_list})
 
 
-class MyDriveList(ListView):
-    model = Drive
-    template_name = 'drive/drive_mylist.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['objects'] = Drive.objects.filter(user=self.request.user.id)
-        return context
+# class MyDriveList(ListView):
+#     model = Drive
+#     template_name = 'drive/drive_mylist.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['objects'] = Drive.objects.filter(user=self.request.user.id)
+#         return context

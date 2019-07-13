@@ -17,17 +17,6 @@
 
 
 <script type='text/javascript'>
-    // $(function () {
-    //     $('.input-group.date').datepicker({
-    //         calendarWeeks: false,
-    //         todayHighlight: true,
-    //         autoclose: true,
-    //         format: "yyyy-mm-dd",
-    //         language: "kr",
-    //         defalutDate: new Date()
-    //     });
-    // });
-
 
     var activeDeparture;
     var activeArrival;
@@ -38,7 +27,6 @@
         $('#departure_key_input').val(activeDeparture);
         $('#arrival-label').text(activeArrival);
         $('#arrive_key_input').val(activeArrival);
-
         if (date) {
             $('#date').text((date.getFullYear())+'년 ' + (date.getMonth() + 1) + '월 ' + date.getDate() + '일');
             $('#date_key_input').val($.datepicker.formatDate('yy-mm-dd', date));
@@ -90,59 +78,118 @@
 {% endblock %}
 {% block css %}
 
+
 .main-button {
 background: #ffffff;
-padding: 20px 0px;
-text-align: center;
+padding: 27px 30px;
+text-align: left;
 width: 100%;
-height: 70px;
-max-width: 620px;
+height: 90px;
+max-width: 800px;
 border-radius: 10px;
 display: inline-block;
-<!--margin: 0px 10px;-->
-margin: auto;
+height: 90px;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
 
-#left-check:hover, #right-check:hover, {
-    background-color: #5672ff;
-    cursor:pointer;
+.main-button1 {
+background: #ffffff;
+padding: 15px 30px;
+text-align: left;
+width: 100%;
+height: 90px;
+max-width: 800px;
+border-radius: 10px;
+display: inline-block;
+height: 90px;
+margin: 0px 0px 20px 0px;
+font-size: 18px;
+transition: background 0.5s;
+}
 
+.deliver-date1{
+font-size: 20px;
+}
+
+#left-check:hover, #right-check:hover, #deliver-date:hover {
+    background-color: #A9BCF5;
+    cursor:pointer;
 }
 
 .check {
 background: #ffffff;
 padding: 20px 0px;
 text-align: center;
-width: 100px;
-height: 90px;
+width: 40%;
+<!--height: 90px;-->
+max-width: 300px;
 border-radius: 10px;
 display: inline-block;
+margin: 0px 0px 20px 0px;
 transition: background 0.5s;
 }
 
 #left-check {
-margin-left:22px;
+margin-left:15px;
 margin-right:5px;
 }
 
 #right-check {
 margin-left:5px;
-margin-right:22px;
+margin-right:15px;
 }
 
 #submit {
-background: #5672ff;
+background: #007bff;
 padding: 20px 0px;
 text-align: center;
 width: 100%;
-max-width: 620px;
-height: 70px;
+max-width: 800px;
+height: 90px;
 border-radius: 10px;
 display: inline-block;
-<!--margin: 0px 10px;-->
 margin: auto;
 transition: background 0.5s;
+}
+
+.time-card>#date, .time-hm-card>#time, .cost-card>#cost {
+    margin: 7px;
+    float: right;
+}
+
+.bottom-main {
+font-weight:bold;
+padding: 10px 0px;
+margin : 50px 0px 10px 0px
+
+}
+
+h5 {
+padding: 0px 20px;
+}
+
+#down-point{
+padding: 0px 0px 10px 0px;
+}
+
+#container1{
+        height: 100vh;
+        position:relative;
+    }
+
+
+
+#bottom {
+    width: 100%;
+}
+
+.bottomInfo {
+    width: 100%;
+    text-align: right;
+    bottom: 0px;
+    position: absolute;
+
 }
 
 
@@ -150,7 +197,7 @@ transition: background 0.5s;
 
 {% block content %}
 
-<form action="{% url 'drive:list' %}" method="POST" id="main-form">
+<form action="{% url 'drive:list' %}" method="POST">
     {% csrf_token %}
 
     <div class="row">
@@ -167,35 +214,27 @@ transition: background 0.5s;
             <h3 id="arrival-label">--</h3>
             <input type="hidden" name="arrive_key" id="arrive_key_input"  />
         </div>
-
     </div>
-    <br>
+
     <div class="row">
         <div class="col">
-            <div class="main-button">
-                <div class="time-card" onclick="launchDatePickerModal()">
+            <div class="main-button" id="deliver-date">
+                <div class="time-card"  onclick="launchDatePickerModal()" >
                     <span id="infolabel">출발 날짜</span>
                     <h5 id="date">--</h5>
-<!--                    <input type="hidden" id="date_key_input" name="date_key" />-->
                 </div>
-<!--                출발날짜-->
-<!--                <div class="input-group date" data-provide="datepicker">-->
-<!--                    <input type="text" class="form-control" name="date_key">-->
-<!--                    <div class="input-group-addon">-->
-<!--                        <span class="glyphicon glyphicon-th"></span>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;                    <input type="text" class="form-control" name="date_key"><span class="input-group-addon"></span>&ndash;&gt;-->
-<!--                </div>-->
             </div>
-
         </div>
     </div>
-    <br>
+
     <div class="row">
         <div class="col">
             <input type="submit" id="submit" class="btn btn-primary btn-lg" value="조회하기">
         </div>
     </div>
+<!--    <div class="row" style="float:right; padding-top: 5px;">-->
+<!--        <h5>장카는 현재까지 <bold>무사고</bold>입니다.</h5>-->
+<!--    </div>-->
 
     <!-- Modal -->
     <div class="modal fade" id="date-modal" tabindex="-1" role="dialog">
@@ -270,4 +309,37 @@ transition: background 0.5s;
     </div>
 </form>
 
+    <div class="row bottom-main"><h3>최근 등록된 장카</h3></div>
+    {% for object in object_list %}
+    <div class="row"><h5>{{ object.departure_area }} - {{ object.arrive_area }} &nbsp&nbsp ({{ object.departure_date|date:"m월 d일" }})</h5></div>
+    <div class="row main-button1 deliver-date1" style='cursor:pointer' onclick="location.href='{% url 'drive:detail' object.id %}';">
+        <div class="row deliver-date1">
+   <div class="col deliver-date1">
+                 <span id="infolabel10"><a href="{% url 'drive:detail' object.id %}" id="down-point">출발 시각 : {{ object.departure_time }}</a></span>
+   </div>
+            <div class="col deliver-date1">요금 : {{ object.fee }}</div>
+        </div>
+        <div class="row">
+   <div class="col deliver-date1">상세 여정 : {{ object.detail_plan }}</div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row bottom-main"><h3>고객센터 안내</h3></div>
+    <div class="row">
+        <div class="col">
+            <div class="main-button1">
+                    <span>문의 : cs_jangcar@naver.com
+            <br>
+                     실시간 문의 : 플러스친구 jangcar
+                    </span>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block bottom %}
+<!--<p class="bottomInfo">문의 : deaguowl@gmail.com</p>-->
 {% endblock %}
